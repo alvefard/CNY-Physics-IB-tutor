@@ -851,12 +851,15 @@ NO seas genérico. Sé específico como un evaluador IB.
         st.write(feedback)
         
 # =========================
-# ⏱️ Gestión de Exámenes IB"
+# ⏱️ GESTIÓN DE EXÁMENES IB
 # =========================
 
 with tabs[9]:
 
-    st.markdown("<h1 style='font-size:42px;'>⏱️ Gestión de Exámenes IB</h1>", unsafe_allow_html=True)
+    st.markdown(
+        "<h1 style='font-size:42px;'>⏱️ Gestión de Exámenes IB</h1>",
+        unsafe_allow_html=True
+    )
 
     col1, col2 = st.columns([1, 1])
 
@@ -865,23 +868,28 @@ with tabs[9]:
     # =========================
     with col1:
 
-        st.markdown("<h2 style='font-size:32px;'>🧪 Configuración</h2>", unsafe_allow_html=True)
+        st.markdown(
+            "<h2 style='font-size:32px;'>🧪 Configuración</h2>",
+            unsafe_allow_html=True
+        )
 
+        # Lista original de exámenes, tipos y duraciones
         examenes = [
-            ("Análisis NM P1", "Semiestructurado", 90),
-            ("Análisis NM P2", "Semiestructurado", 90),
-            ("Aplicaciones NM P1", "Estructurado", 90),
-            ("Aplicaciones NM P2", "No estructurado", 90),
+            ("Matemáticas: Análisis y enfoques NM P1", "Semiestructurado", 90),
+            ("Matemáticas: Análisis y enfoques NM P2", "Semiestructurado", 90),
+            ("Matemáticas: Aplicaciones e interpretaciones NM P1", "Estructurado", 90),
+            ("Matemáticas: Aplicaciones e interpretaciones NM P2", "No estructurado", 90),
             ("Biology NM P1", "Estructurado", 90),
-            ("Biology NM P2", "Estructurado", 90),
+            ("Biology NM P2", "No estructurado", 90),
             ("Chemistry NM P1", "Estructurado", 90),
             ("Chemistry NM P2", "Estructurado", 90),
-            ("Gestión NM NS P1", "No estructurado", 90),
-            ("Gestión NS P3", "No estructurado", 75),
-            ("Gestión Empresarial NM P2", "Estructurado", 90),
+            ("Gestión Empresarial NS P1", "No estructurado", 90),
+            ("Gestión Empresarial NM P1", "No estructurado", 90),
+            ("Gestión Empresarial NS P3", "No estructurado", 75),
+            ("Gestión Empresarial NM P2", "No estructurado", 90),
             ("Gestión Empresarial NS P2", "No estructurado", 105),
-            ("Lengua y Lit. NS P1", "No estructurado", 135),
-            ("Lengua y Lit. NS P2", "No estructurado", 105),
+            ("Español A: Lengua y Literatura NS P1", "No estructurado", 135),
+            ("Español A: Lengua y Literatura NS P2", "No estructurado", 105),
             ("Historia NM P2", "No estructurado", 90),
             ("Historia NS P2", "No estructurado", 90),
             ("Historia NM P1", "No estructurado", 60),
@@ -894,124 +902,357 @@ with tabs[9]:
             ("Filosofía NS P3", "No estructurado", 75),
             ("Física NM P1", "Estructurado", 90),
             ("Física NM P2", "Estructurado", 90),
-            ("Inglés B NS P1", "Estructurado", 90),
-            ("Inglés B NS Lectura", "Estructurado", 60),
-            ("Inglés B NS Auditiva", "Estructurado", 60),
+            ("Inglés B NS P1", "No estructurado", 90),
+            ("Inglés B NS P2-Compresión de lectura", "Estructurado", 60),
+            ("Inglés B NS P2-Comprensión auditiva", "No estructurado", 60),
+            ("Política Global NM P1", "No estructurado", 75),
+            ("Política Global NM P2", "No estructurado", 105),
             ("Política Global NS P1", "No estructurado", 75),
-            ("Política Global NS P2", "No estructurado", 165),
+            ("Política Global NS P2", "No estructurado", 105),
             ("ESS NM P1", "Estructurado", 60),
             ("ESS NM P2", "Estructurado", 120),
-            
         ]
 
         nombres = [e[0] for e in examenes]
 
-        seleccion = st.selectbox("Selecciona el examen", nombres)
+        seleccion = st.selectbox(
+            "📚 Selecciona el examen",
+            nombres,
+            key="gestion_examen_seleccion"
+        )
+
         examen = examenes[nombres.index(seleccion)]
 
         materia = examen[0]
         tipo = examen[1]
         duracion = examen[2]
 
-        # 🔥 MATERIA GRANDE
+        # Información del examen
         st.markdown(
             f"""
-            <div style='
-                font-size:40px;
+            <div style="
+                font-size:30px;
                 font-weight:bold;
-                margin-bottom:10px;
-            '>
+                margin:15px 0;
+                line-height:1.25;
+            ">
                 📘 {materia}
+            </div>
+            <div style="font-size:30px; margin-bottom:10px;">
+                🧪 Tipo: <b>{tipo}</b>
+            </div>
+            <div style="font-size:30px; margin-bottom:20px;">
+                ⏱️ Duración: <b>{duracion} minutos</b>
             </div>
             """,
             unsafe_allow_html=True
         )
 
-        st.markdown(f"<div style='font-size:26px;'>🧪 Tipo: <b>{tipo}</b></div>", unsafe_allow_html=True)
-        st.markdown(f"<div style='font-size:26px;'>⏱️ Duración: <b>{duracion} min</b></div>", unsafe_allow_html=True)
-
         # =========================
-        # ⏰ HORA
+        # ⏰ HORA DE INICIO
         # =========================
-        st.markdown("<h3 style='font-size:28px;'>⏰ Hora de inicio</h3>", unsafe_allow_html=True)
+        st.markdown(
+            "<h3 style='font-size:15px;'>⏰ Configura la hora de inicio</h3>",
+            unsafe_allow_html=True
+        )
 
         col_h1, col_h2 = st.columns(2)
 
         with col_h1:
-            hora = st.selectbox("Hora", list(range(0, 24)), format_func=lambda x: f"{x:02d}")
+            hora = st.selectbox(
+                "Hora",
+                list(range(24)),
+                index=8,
+                format_func=lambda x: f"{x:02d}",
+                key="gestion_hora_inicio"
+            )
 
         with col_h2:
-            minuto = st.selectbox("Minuto", list(range(0, 60)), format_func=lambda x: f"{x:02d}")
+            minuto = st.selectbox(
+                "Minuto",
+                list(range(60)),
+                index=0,
+                format_func=lambda x: f"{x:02d}",
+                key="gestion_minuto_inicio"
+            )
 
+        # Hora local de Colombia
         ahora = datetime.datetime.now(ZoneInfo("America/Bogota"))
 
-        inicio_dt = ahora.replace(hour=hora, minute=minuto, second=0, microsecond=0)
+        inicio_dt = ahora.replace(
+            hour=hora,
+            minute=minuto,
+            second=0,
+            microsecond=0
+        )
+
+        # Calcular finalización
         fin_dt = inicio_dt + datetime.timedelta(minutes=duracion)
 
-        # 🔥 HORAS GRANDES
+        # =========================
+        # 🚻 SALIDA AL BAÑO
+        # =========================
         st.markdown(
-            f"""
-            <div style='font-size:34px; font-weight:bold; line-height:1.6;'>
-                🕒 Inicio: {inicio_dt.time()}<br>
-                🕒 Fin: {fin_dt.time()}
-            </div>
-            """,
+            "<h3 style='font-size:28px;'>🚻 Salida al baño</h3>",
             unsafe_allow_html=True
         )
 
-        # =========================
-        # 🚻 BAÑO
-        # =========================
         if duracion > 75:
 
             salida_inicio = inicio_dt + datetime.timedelta(minutes=60)
             salida_fin = fin_dt - datetime.timedelta(minutes=15)
 
-            st.markdown("<h3 style='font-size:28px;'>🚻 Salida al baño</h3>", unsafe_allow_html=True)
-
             st.markdown(
                 f"""
-                <div style='font-size:28px; font-weight:bold;'>
-                    {salida_inicio.time()} → {salida_fin.time()}
+                <div style="
+                    font-size:28px;
+                    font-weight:bold;
+                    padding:12px;
+                    border-radius:10px;
+                    background-color:#E8F5E9;
+                    color:#1B5E20;
+                ">
+                    🚻 Desde: {salida_inicio.strftime("%H:%M:%S")}<br>
+                    ⛔ Límite: {salida_fin.strftime("%H:%M:%S")}
                 </div>
                 """,
                 unsafe_allow_html=True
             )
+
         else:
-            st.markdown("<div style='font-size:24px;'>🚫 No se permite salida</div>", unsafe_allow_html=True)
+
+            st.markdown(
+                """
+                <div style="font-size:20px; font-weight:bold;">
+                    🚫 No se permite salida al baño.
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
     # =========================
-    # ⏱️ COLUMNA DERECHA (RELOJ)
+    # 🕒 COLUMNA DERECHA
     # =========================
     with col2:
 
-        st.markdown("<h2 style='font-size:32px; text-align:center;'>🕒 Hora oficial</h2>", unsafe_allow_html=True)
-
-        components.html("""
-            <div id="clock" style="
-                font-size:80px;
-                font-weight:bold;
+        st.markdown(
+            """
+            <h2 style="
+                font-size:28px;
                 text-align:center;
-                margin-top:40px;
-            "></div>
+            ">
+                🕒 Hora oficial de Colombia
+            </h2>
+            """,
+            unsafe_allow_html=True
+        )
 
-            <script>
-            function updateClock() {
-                const now = new Date();
+        # =========================
+        # RELOJ EN VIVO
+        # =========================
+        components.html(
+            """
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                    body {
+                        margin: 0;
+                        font-family: Arial, sans-serif;
+                    }
+                    #clock {
+                        font-size: 60px;
+                        font-weight: bold;
+                        text-align: center;
+                        margin-top: 8px;
+                        color: #1565C0;
+                    }
+                </style>
+            </head>
+            <body>
+                <div id="clock">--:--:--</div>
 
-                const options = {
-                    timeZone: "America/Bogota",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                    hour12: false
-                };
+                <script>
+                    function updateClock() {
+                        const now = new Date();
 
-                const timeString = now.toLocaleTimeString("es-CO", options);
-                document.getElementById("clock").innerHTML = timeString;
-            }
+                        const options = {
+                            timeZone: "America/Bogota",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit",
+                            hour12: false
+                        };
 
-            setInterval(updateClock, 1000);
-            updateClock();
-            </script>
-        """, height=180)
+                        document.getElementById("clock").textContent =
+                            new Intl.DateTimeFormat("es-CO", options).format(now);
+                    }
+
+                    updateClock();
+                    setInterval(updateClock, 1000);
+                </script>
+            </body>
+            </html>
+            """,
+            height=80,
+            scrolling=False
+        )
+
+        # =========================
+        # 🟢 HORA DE INICIO Y 🔴 FIN
+        # =========================
+        components.html(
+            f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                    body {{
+                        margin: 0;
+                        font-family: Arial, sans-serif;
+                    }}
+                    .panel {{
+                        box-sizing: border-box;
+                        padding: 20px;
+                        border-radius: 12px;
+                        background: #EAF2F8;
+                        color: #15324B;
+                        text-align: center;
+                    }}
+                    .label {{
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin: 8px 0;
+                    }}
+                    .time {{
+                        font-size: 35px;
+                        font-weight: bold;
+                        margin-bottom: 16px;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class="panel">
+                    <div class="label">🟢 HORA DE INICIO</div>
+                    <div class="time">{inicio_dt.strftime("%H:%M:%S")}</div>
+
+                    <div class="label">🔴 HORA DE FINALIZACIÓN</div>
+                    <div class="time">{fin_dt.strftime("%H:%M:%S")}</div>
+                </div>
+            </body>
+            </html>
+            """,
+            height=200,
+            scrolling=False
+        )
+
+        # =========================
+        # ⏳ AVISOS DE TIEMPO
+        # =========================
+        aviso_30 = fin_dt - datetime.timedelta(minutes=30)
+        aviso_5 = fin_dt - datetime.timedelta(minutes=5)
+
+        st.markdown(
+            """
+            <h2 style="
+                font-size:27px;
+                text-align:center;
+                margin-top:15px;
+            ">
+                ⏳ Avisos de tiempo
+            </h2>
+            """,
+            unsafe_allow_html=True
+        )
+
+        # =========================
+        # 🟡 AVISO DE 30 MINUTOS
+        # =========================
+        components.html(
+            f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                    body {{
+                        margin: 0;
+                        font-family: Arial, sans-serif;
+                    }}
+                    .panel {{
+                        box-sizing: border-box;
+                        padding: 14px;
+                        border-radius: 10px;
+                        background: #FFF3CD;
+                        color: #664D03;
+                        text-align: center;
+                    }}
+                    .label {{
+                        font-size: 21px;
+                        font-weight: bold;
+                        margin-bottom: 8px;
+                    }}
+                    .time {{
+                        font-size: 35px;
+                        font-weight: bold;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class="panel">
+                    <div class="label">🟡 FALTAN 30 MINUTOS</div>
+                    <div class="time">{aviso_30.strftime("%H:%M:%S")}</div>
+                </div>
+            </body>
+            </html>
+            """,
+            height=105,
+            scrolling=False
+        )
+
+        # =========================
+        # 🔴 AVISO DE 5 MINUTOS
+        # =========================
+        components.html(
+            f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                    body {{
+                        margin: 0;
+                        font-family: Arial, sans-serif;
+                    }}
+                    .panel {{
+                        box-sizing: border-box;
+                        padding: 14px;
+                        border-radius: 10px;
+                        background: #F8D7DA;
+                        color: #842029;
+                        text-align: center;
+                    }}
+                    .label {{
+                        font-size: 21px;
+                        font-weight: bold;
+                        margin-bottom: 8px;
+                    }}
+                    .time {{
+                        font-size: 35px;
+                        font-weight: bold;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class="panel">
+                    <div class="label">🔴 FALTAN 5 MINUTOS</div>
+                    <div class="time">{aviso_5.strftime("%H:%M:%S")}</div>
+                </div>
+            </body>
+            </html>
+            """,
+            height=105,
+            scrolling=False
+        )
