@@ -899,6 +899,7 @@ with tabs[9]:
             ("Inglés B NS Auditiva", "Estructurado", 60),
             ("Política Global NS P1", "No estructurado", 75),
             ("Política Global NS P2", "No estructurado", 165),
+            ("Política Global NS P3", "No estructurado", 90),
             ("ESS NM P1", "Estructurado", 60),
             ("ESS NM P2", "Estructurado", 120),
             
